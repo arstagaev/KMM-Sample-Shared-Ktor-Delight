@@ -50,9 +50,12 @@ dependencies {
     implementation(Dependency.Compose.composeFoundation)
     implementation(Dependency.Compose.composeMaterial)
     implementation(Dependency.Compose.composeActivity)
+
     implementation(Dependency.Coroutines.coroutineAndroid)
+
     implementation(Dependency.Koin.core)
     implementation(Dependency.Koin.android)
+
     implementation(Dependency.Compose.coilCompose)
 
 //    implementation("androidx.compose.ui:ui:1.4.0")

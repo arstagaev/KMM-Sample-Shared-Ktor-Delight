@@ -1,0 +1,16 @@
+CREATE TABLE Launch (
+    flightNumber INTEGER NOT NULL,
+    missionName TEXT NOT NULL,
+    launchSuccess INTEGER -- has been boolean
+);
+
+insertLaunch:
+INSERT INTO Launch(flightNumber, missionName, launchSuccess)
+VALUES(?, ?,?);
+
+removeAllLaunches:
+DELETE FROM Launch;
+
+selectAllLaunchesInfo:
+SELECT Launch.*
+FROM Launch;

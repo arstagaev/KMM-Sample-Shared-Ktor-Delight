@@ -13,6 +13,7 @@ object Versions {
     const val essenty = "1.0.0"
     const val ktor = "2.2.3"
     const val sqlDelight = "2.0.0-alpha05"
+    //const val sqlDelight = "1.5.5"
 
     // Koin
     const val koin = "3.4.0"

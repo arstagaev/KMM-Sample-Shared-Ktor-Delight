@@ -6,6 +6,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+    id("app.cash.sqldelight")
 }
 
 kotlin {
@@ -38,15 +39,24 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                //Koin
                 implementation(Dependency.Koin.core)
-                implementation(Dependency.Ktor.core)
-                implementation(Dependency.Ktor.clientLogging)
+                // Ktor
+                with(Dependency.Ktor) {
+                    api(core)
+                    api(json)
+                    api(contentNegotiation)
+                    api(clientLogging)
+                }
 
-                implementation(Dependency.Ktor.json)
+                // SqlDelight
+                with(Dependency.SQLDelight) {
+                    api(coroutinesExtensions)
+                    api(primitiveAdapters)
+                }
 
 //                implementation(Ktor.ktorCoreClient)
 //                implementation(Coroutines.coroutineCore)
-//                implementation(Koin.core)
 //                implementation(Ktor.serialization)
 //                implementation(Ktor.clientLogging)
 //                implementation(Ktor.json)
@@ -64,6 +74,10 @@ kotlin {
 
                 implementation(Dependency.Ktor.okhttp)
                 implementation(Dependency.Ktor.android)
+
+                // SqlDelight
+                implementation(Dependency.SQLDelight.androidDriver)
+
             }
         }
         val iosX64Main by getting
@@ -72,17 +86,16 @@ kotlin {
         val iosMain by creating {
             dependsOn(commonMain)
             dependencies {
+                // Ktor
                 implementation(Dependency.Ktor.darwin)
-
+                // SqlDelight
+                implementation(Dependency.SQLDelight.nativeDriver)
             }
 
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
         }
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
     }
 }
 
@@ -96,5 +109,14 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+sqldelight {
+    databases {
+        create("AppDatabase") {
+            //sqldelight/com/arstagaev/testkmm9/cache/AppDatabase.sq
+            packageName.set("com.arstagaev.testkmm9.cache")
+        }
     }
 }
