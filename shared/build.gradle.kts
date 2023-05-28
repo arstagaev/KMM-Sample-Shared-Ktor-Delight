@@ -1,5 +1,6 @@
 import com.arstagaev.testkmm9.Dependency
 import com.arstagaev.testkmm9.Configuration
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("multiplatform")
@@ -8,13 +9,17 @@ plugins {
 }
 
 kotlin {
-    android {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
-        }
-    }
+//    android {
+//        compilations.all {
+//            kotlinOptions.jvmTarget = "11"
+//        }
+//        tasks.withType<KotlinCompile> {
+//            kotlinOptions {
+//                jvmTarget = "11"
+//            }
+//        }
+//    }
+    android()
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -86,5 +91,10 @@ android {
     compileSdk = Configuration.compileSdk
     defaultConfig {
         minSdk = Configuration.minSdk
+        targetSdk = Configuration.targetSdk
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
