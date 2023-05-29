@@ -85,16 +85,16 @@ kotlin {
         val iosSimulatorArm64Main by getting
         val iosMain by creating {
             dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+
             dependencies {
                 // Ktor
                 implementation(Dependency.Ktor.darwin)
                 // SqlDelight
                 implementation(Dependency.SQLDelight.nativeDriver)
             }
-
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
         }
     }
 }
